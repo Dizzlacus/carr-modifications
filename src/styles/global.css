@@ -57,6 +57,7 @@
 
 /* One offset for all anchors: section top sits just under the fixed header */
 html {
+  overflow-x: clip;
   scroll-padding-top: var(--header-offset);
   scroll-behavior: smooth;
 }
@@ -71,6 +72,22 @@ html {
   /* Sampled from the portrait backdrop so the canvas and photo read as one field */
   --hero-canvas: #212121;
   background-color: var(--hero-canvas);
+  min-height: var(--hero-height);
+}
+
+@media (max-width: 767px) {
+  #home {
+    height: var(--hero-height);
+    max-height: var(--hero-height);
+  }
+}
+
+@media (min-width: 768px) {
+  #home {
+    height: 100vh;
+    max-height: 100vh;
+    min-height: 0;
+  }
 }
 
 #home .hero-copy h1 {
@@ -82,37 +99,42 @@ html {
   align-items: flex-start;
 }
 
-/* Portrait pinned right; overscaled so the photo’s lighter top edge is cropped out */
+/* Portrait pinned right; overscaled so the photo’s lighter top edge is cropped out. */
 .hero-portrait {
   position: absolute;
   inset: 0;
   z-index: 1;
+  overflow: hidden;
   pointer-events: none;
+  contain: layout paint;
 }
 
 .hero-portrait::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: rgba(0, 0, 0, 0.32);
 }
 
 #home .hero-portrait picture {
-  display: contents;
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
 }
 
 .hero-portrait-img {
   position: absolute;
-  top: 50%;
+  top: calc(var(--hero-height) * -0.075);
   right: 0;
   left: auto;
-  height: 115%;
+  height: calc(var(--hero-height) * 1.15);
   width: auto;
   max-width: none;
   object-fit: cover;
   object-position: right center;
   display: block;
-  transform: translateY(-50%);
   -webkit-mask-image: linear-gradient(to right, transparent, #000 3.5rem);
   mask-image: linear-gradient(to right, transparent, #000 3.5rem);
 }
@@ -135,10 +157,10 @@ html {
   }
 
   .hero-portrait-img {
-    height: 115%;
-    right: -30vw;
+    top: calc(var(--hero-height) * -0.075 + 1.75rem);
+    right: -30%;
+    height: calc(var(--hero-height) * 1.15);
     object-position: right center;
-    transform: translateY(calc(-50% + 1.75rem));
   }
 
   .hero-portrait::after {
@@ -204,15 +226,13 @@ html {
 
 /* —— Sticky header —— */
 #site-header {
-  transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   border-bottom: 1px solid transparent;
 }
 
 #site-header.is-sticky,
 #site-header.is-menu-open {
-  background-color: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.92);
   border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 

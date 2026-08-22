@@ -5,7 +5,7 @@ import heroPortrait from "../assets/hero/portrait.png";
 import BrandMark from "./BrandMark.astro";
 ---
 
-<section id="home" class="relative isolate w-full max-w-full overflow-hidden min-h-[var(--hero-height)] md:h-[100vh] md:max-h-[100vh] md:min-h-0">
+<section id="home" class="relative isolate w-full max-w-full overflow-hidden">
   <div class="hero-portrait" aria-hidden="true">
     <Image
       src={heroPortrait}
@@ -18,7 +18,7 @@ import BrandMark from "./BrandMark.astro";
     />
   </div>
   <div
-    class="hero-copy relative z-[2] flex min-h-[var(--hero-height)] md:min-h-0 md:h-full flex-col items-start justify-center text-left site-container pt-[var(--header-offset)] pb-10"
+    class="hero-copy relative z-[2] flex h-full min-h-0 flex-col items-start justify-center text-left site-container pt-[var(--header-offset)] pb-10"
   >
     <p
       class="reveal text-[0.65rem] font-medium tracking-[0.22em] uppercase text-white/80 mb-5"

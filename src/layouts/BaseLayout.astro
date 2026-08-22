@@ -63,6 +63,27 @@ const jsonLd = includeSchema
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var lockedWidth = window.innerWidth;
+        function lockHero() {
+          root.style.setProperty("--hero-height", window.innerHeight + "px");
+        }
+        lockHero();
+        window.addEventListener("orientationchange", function () {
+          setTimeout(function () {
+            lockedWidth = window.innerWidth;
+            lockHero();
+          }, 400);
+        });
+        window.addEventListener("resize", function () {
+          if (Math.abs(window.innerWidth - lockedWidth) < 80) return;
+          lockedWidth = window.innerWidth;
+          lockHero();
+        });
+      })();
+    </script>
     <meta name="theme-color" content="#000000" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
