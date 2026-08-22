@@ -1,6 +1,22 @@
 // Carr Modifications — global scripts
 
 (function () {
+  const root = document.documentElement;
+  let lockedWidth = window.innerWidth;
+
+  function lockHeroHeight() {
+    root.style.setProperty("--hero-height", `${window.innerHeight}px`);
+  }
+
+  lockHeroHeight();
+  window.addEventListener("resize", () => {
+    if (window.innerWidth === lockedWidth) return;
+    lockedWidth = window.innerWidth;
+    lockHeroHeight();
+  });
+})();
+
+(function () {
   const yearEl = document.getElementById("footer-year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 })();

@@ -24,6 +24,8 @@
   --section-space: 5rem;
   /* Matches #site-header h-16 */
   --header-offset: 4rem;
+  /* Locked to the initial viewport in JS so Instagram chrome cannot resize the hero */
+  --hero-height: 100svh;
 }
 
 @media (min-width: 640px) {
@@ -136,7 +138,7 @@ html {
     height: 115%;
     right: -30vw;
     object-position: right center;
-    transform: translateY(calc(-50% + 4vh));
+    transform: translateY(calc(-50% + 1.75rem));
   }
 
   .hero-portrait::after {
