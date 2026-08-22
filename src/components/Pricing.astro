@@ -1,0 +1,85 @@
+---
+import {
+  formatItemPrice,
+  pricingCategories,
+  pricingNotes,
+  type PricingCategory,
+} from "../data/pricing";
+import logoSvg from "../assets/brand/logo.svg?raw";
+
+const [ear, ...sideCategories] = pricingCategories;
+
+if (!ear) {
+  throw new Error("pricingCategories is empty");
+}
+
+const columns: PricingCategory[][] = [[ear], sideCategories];
+
+const watermark = logoSvg.replace(
+  "<svg ",
+  `<svg class="pricing-watermark-mark" `,
+);
+---
+
+<section id="pricing" class="bg-brand-black w-full max-w-full overflow-hidden pb-[var(--section-space)]">
+  <div class="site-container w-full">
+    <div class="reveal section-heading text-center">
+      <p class="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50 mb-3">03 / Pricing</p>
+      <h2 class="poster-heading text-[clamp(2.75rem,9vw,5.75rem)] mb-4">
+        Pricing
+      </h2>
+      <p class="text-white/65 mx-auto max-w-md leading-relaxed text-sm md:text-base">
+        Set with standard jewellery. Every piercing starts with an anatomy consultation.
+      </p>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-5xl">
+      <div class="pricing-watermark" aria-hidden="true" set:html={watermark} />
+
+      <div class="relative z-[1] grid md:grid-cols-2 gap-10 md:gap-16">
+        {
+          columns.map((column, index) => (
+            <div
+              class:list={[
+                "reveal flex flex-col gap-10 md:gap-12",
+                index === 1 && "reveal-delay-1",
+              ]}
+            >
+              {column.map((category) => (
+                <div>
+                  <h3 class="mb-4 border-b border-white pb-2 text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white">
+                    {category.name}
+                  </h3>
+                  <dl>
+                    {category.items.map((item) => (
+                      <div class="price-row">
+                        <dt class="text-sm md:text-[0.9375rem] text-white">
+                          {item.name}
+                          {item.note ? (
+                            <span class="text-white/45"> ({item.note})</span>
+                          ) : null}
+                        </dt>
+                        <span class="price-leader" aria-hidden="true" />
+                        <dd class="text-sm md:text-[0.9375rem] text-white/85">{formatItemPrice(item)}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+
+      <aside class="reveal reveal-delay-2 relative z-[1] mt-10 border border-white px-5 py-5 md:mt-14 md:px-8 md:py-6">
+        <ul class="space-y-2 text-xs md:text-sm leading-relaxed text-white/65">
+          {
+            pricingNotes.map((note) => (
+              <li>{note}</li>
+            ))
+          }
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>

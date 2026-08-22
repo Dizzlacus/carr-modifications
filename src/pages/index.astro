@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Services from "../components/Services.astro";
+import Pricing from "../components/Pricing.astro";
+import Artist from "../components/Artist.astro";
+import Reviews from "../components/Reviews.astro";
+import Booking from "../components/Booking.astro";
+import Footer from "../components/Footer.astro";
+import { business } from "../data/business";
+
+const title = "Carr Modifications — Body piercing artist.";
+const description = business.description;
+---
+
+<BaseLayout title={title} description={description} includeSchema>
+  <Header />
+  <main class="w-full max-w-full overflow-x-hidden flex flex-col">
+    <Hero />
+    <About />
+    <div class="section-rule" aria-hidden="true"></div>
+    <Services />
+    <div class="section-rule" aria-hidden="true"></div>
+    <Pricing />
+    <div class="section-rule" aria-hidden="true"></div>
+    <Artist />
+    <div class="section-rule" aria-hidden="true"></div>
+    <Reviews />
+    <div class="section-rule" aria-hidden="true"></div>
+    <Booking />
+    <Footer />
+  </main>
+</BaseLayout>

@@ -1,0 +1,104 @@
+---
+import { reviews } from "../data/reviews";
+
+const starIndexes = [0, 1, 2, 3, 4] as const;
+---
+
+<section id="reviews" class="bg-brand-black w-full max-w-full overflow-hidden pb-[var(--section-space)]">
+  <div class="site-container w-full">
+    <div class="section-heading flex items-end justify-between gap-6">
+      <div class="reveal min-w-0">
+        <p class="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50 mb-3">05 / Reviews</p>
+        <h2 class="poster-heading text-[clamp(2.75rem,9vw,5.75rem)] mb-4">
+          Reviews
+        </h2>
+        <p class="text-white/65 max-w-md leading-relaxed text-sm md:text-base">
+          Recent words from the studio.
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1 mb-1 flex shrink-0 gap-2">
+        <button
+          type="button"
+          class="reviews-nav"
+          data-reviews-prev
+          aria-label="Previous review"
+          disabled
+        >
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button type="button" class="reviews-nav" data-reviews-next aria-label="Next review">
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <ul
+        class="reviews-track"
+        data-reviews-track
+        tabindex="0"
+        aria-label="Client reviews"
+      >
+        {
+          reviews.map((review) => {
+            const quoteId = `review-quote-${review.id}`;
+            return (
+              <li class="reviews-slide" data-reviews-slide>
+                <article
+                  class="reviews-card flex h-full flex-col border border-white px-6 py-8 md:px-8"
+                  data-review-card
+                >
+                  <div class="mb-5 flex items-center justify-between gap-4">
+                    <p class="flex items-center gap-1 text-white" aria-label={`${review.rating} out of 5 stars`}>
+                      {starIndexes.map(() => (
+                        <svg
+                          class="h-3.5 w-3.5 fill-current"
+                          viewBox="0 0 20 20"
+                          aria-hidden="true"
+                        >
+                          <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.52L10 14.12l-4.94 2.6.94-5.51-4-3.9 5.53-.81L10 1.5z" />
+                        </svg>
+                      ))}
+                    </p>
+                  </div>
+                  <blockquote
+                    id={quoteId}
+                    class="reviews-quote text-sm md:text-base leading-relaxed text-white/85 whitespace-pre-line"
+                    data-review-quote
+                  >
+                    “{review.quote}”
+                  </blockquote>
+                  <div class="mt-auto flex items-center gap-4 pt-6">
+                    {
+                      review.name && (
+                        <footer class="min-w-0">
+                          <p class="text-[0.65rem] font-medium tracking-[0.18em] uppercase text-white/50">
+                            {review.name}
+                          </p>
+                        </footer>
+                      )
+                    }
+                    <button
+                      type="button"
+                      class="reviews-more ml-auto shrink-0"
+                      data-review-more
+                      hidden
+                      aria-expanded="false"
+                      aria-controls={quoteId}
+                    >
+                      Read more
+                    </button>
+                  </div>
+                </article>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </div>
+</section>

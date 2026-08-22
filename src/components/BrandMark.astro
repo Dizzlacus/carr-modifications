@@ -1,0 +1,40 @@
+---
+import { business } from "../data/business";
+import logoSvg from "../assets/brand/logo.svg?raw";
+
+interface Props {
+  variant?: "compact" | "hero" | "footer";
+  class?: string;
+}
+
+const { variant = "footer", class: className = "" } = Astro.props;
+
+const nameSize =
+  variant === "hero"
+    ? "text-[clamp(2.4rem,10vw,5.75rem)]"
+    : "text-[clamp(1.8rem,6vw,3.25rem)]";
+
+const navLogo = logoSvg.replace(
+  "<svg ",
+  `<svg class="block h-9 w-auto md:h-10 shrink-0" `,
+);
+const footerLogo = logoSvg.replace(
+  "<svg ",
+  `<svg class="block h-auto w-36 md:w-44" `,
+);
+---
+
+{
+  variant === "compact" ? (
+    <span class:list={["inline-flex items-center gap-2.5 text-white", className]}>
+      <span set:html={navLogo} />
+      <span class="wordmark-compact text-sm md:text-base">{business.name}</span>
+    </span>
+  ) : (
+    <span class:list={["inline-flex flex-col items-center text-white", className]}>
+      {variant !== "hero" && <span set:html={footerLogo} />}
+      <span class:list={["wordmark-outline", variant !== "hero" && "mt-5", nameSize]}>{business.name}</span>
+      <span class="wordmark-tagline">{business.tagline}</span>
+    </span>
+  )
+}

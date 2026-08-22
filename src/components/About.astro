@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import { business } from "../data/business";
+import aboutPhoto from "../assets/about/procedure.jpg";
+---
+
+<section id="about" class="bg-brand-black w-full max-w-full overflow-hidden pt-[var(--section-space)] pb-[var(--section-space)]">
+  <div class="site-container w-full">
+    <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center w-full min-w-0">
+      <div class="reveal">
+        <p class="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50 mb-3">01 / About</p>
+        <h2 class="poster-heading text-[clamp(2.75rem,9vw,5.75rem)] mb-6">
+          {business.name}
+        </h2>
+        <p class="text-white/65 leading-relaxed mb-4 text-sm md:text-base">
+          A piercing studio. Clean work, considered jewellery, and a space that takes the process seriously.
+        </p>
+        <p class="text-white/65 leading-relaxed text-sm md:text-base">
+          Hours, location, and booking details are stand-ins until the studio is ready to publish.
+        </p>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <figure class="relative aspect-[3/4] md:aspect-[4/5] w-full max-w-[450px] md:ml-auto overflow-hidden border border-white/20 bg-brand-black">
+          <Image
+            src={aboutPhoto}
+            alt="Artist performing a piercing on a client's ear at Carr Modifications."
+            widths={[360, 540, 720, 900]}
+            sizes="(min-width: 768px) 450px, 100vw"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+---
+import { business } from "../data/business";
+import BrandMark from "./BrandMark.astro";
+---
+
+<header id="site-header" class="fixed top-0 inset-x-0 z-30">
+  <div class="site-container flex items-center justify-between h-16 md:h-[4.5rem]">
+    <a
+      href="#home"
+      class="shrink-0 text-white"
+      aria-label={business.name}
+    >
+      <BrandMark variant="compact" />
+    </a>
+    <nav class="flex items-center justify-end gap-6">
+      <ul class="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8 text-xs font-medium tracking-[0.2em] uppercase text-white">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="#artist" class="nav-link">Artist</a></li>
+        <li><a href="#reviews" class="nav-link">Reviews</a></li>
+        <li><a href="#booking" class="nav-link">Book</a></li>
+      </ul>
+      <button
+        id="nav-burger"
+        type="button"
+        class="md:hidden relative w-10 h-10 flex items-center justify-center text-white"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-mobile-panel"
+      >
+        <svg id="icon-hamburger" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 17h16"></path>
+        </svg>
+        <svg id="icon-close" class="w-6 h-6 is-hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>
+  <div id="nav-mobile-panel" class="md:hidden border-t border-white/10 bg-brand-black/95 backdrop-blur-sm" aria-hidden="true">
+    <ul class="site-container py-4 space-y-3 text-sm font-medium tracking-wide text-white">
+      <li><a href="#about" class="block py-2 hover:text-white/70 transition-colors">About</a></li>
+      <li><a href="#services" class="block py-2 hover:text-white/70 transition-colors">Services</a></li>
+      <li><a href="#pricing" class="block py-2 hover:text-white/70 transition-colors">Pricing</a></li>
+      <li><a href="#artist" class="block py-2 hover:text-white/70 transition-colors">Artist</a></li>
+      <li><a href="#reviews" class="block py-2 hover:text-white/70 transition-colors">Reviews</a></li>
+      <li><a href="#booking" class="block py-2 hover:text-white/70 transition-colors">Book</a></li>
+    </ul>
+  </div>
+</header>

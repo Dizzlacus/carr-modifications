@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import { business } from "../data/business";
+import heroPortrait from "../assets/hero/portrait.png";
+import BrandMark from "./BrandMark.astro";
+---
+
+<section id="home" class="relative isolate w-full max-w-full overflow-hidden min-h-[100svh] md:h-[100vh] md:max-h-[100vh] md:min-h-0">
+  <div class="hero-portrait" aria-hidden="true">
+    <Image
+      src={heroPortrait}
+      alt=""
+      widths={[640, 960, 1280, 1920]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="hero-portrait-img"
+    />
+  </div>
+  <div
+    class="hero-copy relative z-[2] flex min-h-[100svh] md:min-h-0 md:h-full flex-col items-start justify-center text-left site-container pt-[var(--header-offset)] pb-10"
+  >
+    <p
+      class="reveal text-[0.65rem] font-medium tracking-[0.22em] uppercase text-white/80 mb-5"
+    >
+      {business.kicker}
+    </p>
+    <h1 class="reveal w-full max-w-xl font-display font-normal text-white leading-none">
+      <BrandMark variant="hero" class="hero-brand w-full" />
+    </h1>
+    <p class="reveal reveal-delay-1 mt-6 text-sm md:text-base text-white/90 max-w-lg leading-relaxed tracking-wide">
+      Clean work. Considered jewellery. Details to follow.
+    </p>
+    <div class="reveal reveal-delay-2 hero-cta-group mt-8">
+      <a
+        href="#booking"
+        class="hero-cta inline-flex items-center justify-center px-5 sm:px-6 py-3 text-[0.65rem] sm:text-xs font-medium tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white transition-colors"
+      >
+        Book
+      </a>
+    </div>
+  </div>
+</section>

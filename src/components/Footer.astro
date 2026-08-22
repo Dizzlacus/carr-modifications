@@ -1,0 +1,19 @@
+---
+import { business, businessInstagram } from "../data/business";
+import BrandMark from "./BrandMark.astro";
+---
+
+<footer class="border-t border-white/10 pb-10 pt-10 text-center text-sm text-white/60 bg-brand-black w-full max-w-full overflow-hidden">
+  <div class="site-container flex flex-col items-center">
+    <BrandMark variant="footer" class="mb-8 w-full max-w-md" />
+    <p class="mb-3">&copy; <span id="footer-year"></span> {business.name}. All rights reserved.</p>
+    <p>
+      <a
+        href={businessInstagram.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-white transition-colors">{businessInstagram.handle}</a
+      >
+    </p>
+  </div>
+</footer>

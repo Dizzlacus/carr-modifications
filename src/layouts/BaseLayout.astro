@@ -1,0 +1,122 @@
+---
+import { getImage } from "astro:assets";
+import { business } from "../data/business";
+import ogSource from "../assets/brand/logo.png";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  bodyClass?: string;
+  includeSchema?: boolean;
+}
+
+const {
+  title = "Carr Modifications — Body piercing artist.",
+  description = business.description,
+  bodyClass = "",
+  includeSchema = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const ogImage = await getImage({ src: ogSource, width: 1200, format: "jpg" });
+const ogImageUrl = new URL(ogImage.src, Astro.site).href;
+
+const jsonLd = includeSchema
+  ? {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "@id": `${Astro.site}#business`,
+          name: business.name,
+          description: business.description,
+          url: Astro.site?.href,
+          telephone: business.telephone,
+          email: business.email,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: business.address.streetAddress,
+            addressLocality: business.address.addressLocality,
+            postalCode: business.address.postalCode,
+            addressCountry: business.address.addressCountry,
+          },
+          image: ogImageUrl,
+          sameAs: [business.instagram.url],
+        },
+        {
+          "@type": "WebSite",
+          "@id": `${Astro.site}#website`,
+          name: business.name,
+          url: Astro.site?.href,
+          description: business.description,
+          publisher: { "@id": `${Astro.site}#business` },
+        },
+      ],
+    }
+  : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={business.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="sitemap" href={`${base}sitemap-index.xml`} />
+    <link rel="icon" type="image/png" href={`${base}favicon.png`} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="apple-touch-icon" href={`${base}favicon.png`} />
+    <link rel="manifest" href={`${base}favicon/site.webmanifest`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="https://fonts.gstatic.com/s/bodonimoda/v28/aFTB7PxzY382XsXX63LUYJSPUqb0qojSAq1rZLktbNxSXgOXEFZ8.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,400&family=Inter:wght@400;500;600&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,400&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    {
+      jsonLd && (
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      )
+    }
+  </head>
+  <body
+    class:list={[
+      "min-h-screen w-full max-w-full bg-brand-black text-white antialiased overflow-x-hidden",
+      bodyClass,
+    ]}
+  >
+    <slot />
+    <script src="../scripts/main.js"></script>
+  </body>
+</html>
